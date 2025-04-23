@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt - ATM System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center overflow-hidden">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md overflow-auto max-h-screen">
+        <div class="mb-4 text-center">
+            <div class="inline-block p-3 rounded-full bg-green-100 text-green-600 mb-2">
+                <i class="fas fa-check-circle text-2xl"></i>
+            </div>
+            <h2 class="text-xl font-semibold text-gray-800">Transaction Complete</h2>
+        </div>
+        
+        <div class="bg-gray-50 rounded-lg border border-gray-200 mb-6 shadow-sm">
+            <div class="border-b border-gray-200 bg-gray-100 px-4 py-3 rounded-t-lg flex justify-between items-center">
+                <div class="font-bold text-gray-800 flex items-center">
+                    <i class="fas fa-receipt mr-2"></i> Receipt
+                </div>
+                <div class="text-gray-500 text-xs">{{ transaction_date }}</div>
+            </div>
+            
+            <div class="p-4">
+                <div class="grid grid-cols-2 gap-2 mb-3 pb-2 border-b border-gray-200">
+                    <div class="text-gray-500 flex items-center">
+                        <i class="fas fa-exchange-alt mr-2 text-blue-500"></i>
+                        <span>Transaction:</span>
+                    </div>
+                    <div class="font-medium text-right text-blue-600">{{ transaction_type }}</div>
+                </div>
+                
+                {% if amount %}
+                <div class="grid grid-cols-2 gap-2 mb-3 pb-2 border-b border-gray-200">
+                    <div class="text-gray-500 flex items-center">
+                        <i class="fas fa-dollar-sign mr-2 text-green-500"></i>
+                        <span>Amount:</span>
+                    </div>
+                    <div class="font-medium text-right text-green-600">${{ amount }}</div>
+                </div>
+                {% endif %}
+                
+                <div class="grid grid-cols-2 gap-2 mb-3 pb-2 border-b border-gray-200">
+                    <div class="text-gray-500 flex items-center">
+                        <i class="fas fa-wallet mr-2 text-purple-500"></i>
+                        <span>Balance:</span>
+                    </div>
+                    <div class="font-medium text-right">${{ balance }}</div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-2 mb-1">
+                    <div class="text-gray-500 flex items-center">
+                        <i class="fas fa-credit-card mr-2 text-gray-500"></i>
+                        <span>Account:</span>
+                    </div>
+                    <div class="font-medium text-right">xxxx-xxxx-xxxx-{{ last_four }}</div>
+                </div>
+            </div>
+            
+            <div class="bg-gradient-to-r from-blue-50 to-gray-50 px-4 py-3 rounded-b-lg text-center">
+                <div class="text-blue-600 font-medium mb-1">Thank you for using MyBank</div>
+                <div class="text-gray-500 text-xs">Transaction ID: #{{ transaction_id }}</div>
+            </div>
+        </div>
+        
+        <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-3">
+            <a href="{{ url_for('main_menu', session_id=session_id) }}" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-3 rounded-lg text-center flex items-center justify-center">
+                <i class="fas fa-th-large mr-2"></i> Back to Menu
+            </a>
+            <a href="{{ url_for('logout', session_id=session_id) }}" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-3 rounded-lg text-center flex items-center justify-center">
+                <i class="fas fa-sign-out-alt mr-2"></i> Exit
+            </a>
+        </div>
+        
+        <div class="mt-4 flex justify-center">
+            <a href="#" class="text-blue-500 hover:text-blue-700 text-sm flex items-center">
+                <i class="fas fa-print mr-1"></i> Print Receipt
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>

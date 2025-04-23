@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Balance - ATM System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .balance-container {
+            transition: all 0.3s ease;
+        }
+        
+        .balance-container:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen flex items-center justify-center py-12">
+    <div class="container mx-auto px-4 max-w-lg">
+        <div class="glass-effect rounded-2xl shadow-xl p-8 w-full border border-gray-200">
+            <div class="text-center mb-6">
+                <div class="inline-block bg-blue-100 p-3 rounded-full mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-semibold text-gray-800">Account Balance</h2>
+                <div class="h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mx-auto mt-3"></div>
+            </div>
+            
+            <div class="balance-container bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl p-6 flex flex-col items-center mb-8 shadow-lg">
+                <div class="text-blue-100 mb-1 text-sm">Available Balance</div>
+                <div class="text-5xl font-bold text-white my-3">${{ balance }}</div>
+                <div class="text-blue-200 text-xs">Updated just now</div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <a href="{{ url_for('main_menu', session_id=session_id) }}" class="flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium py-3 px-4 rounded-xl transition duration-300 shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    Back to Menu
+                </a>
+                <a href="{{ url_for('logout', session_id=session_id) }}" class="flex items-center justify-center bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-medium py-3 px-4 rounded-xl transition duration-300 shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    Exit Session
+                </a>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <p class="text-xs text-gray-400" id="last-login-time">Last login: </p>
+            </div>
+            
+        </div>
+    </div>
+    <script>
+        const timeElement = document.getElementById("last-login-time");
+    
+        const now = new Date();
+        const options = { hour: 'numeric', minute: 'numeric', hour12: true };
+        const formattedTime = now.toLocaleTimeString([], options);
+    
+        timeElement.textContent = `Last login: Today at ${formattedTime}`;
+    </script>
+    
+</body>
+</html>

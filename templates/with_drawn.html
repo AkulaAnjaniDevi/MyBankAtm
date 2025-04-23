@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw - ATM System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center py-8">
+    <div class="container mx-auto px-4">
+        <main class="flex flex-col items-center justify-center">
+            <div class="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
+                <div class="mb-6 text-center">
+                    <div class="inline-block p-3 rounded-full bg-blue-100 text-blue-600 mb-3">
+                        <i class="fas fa-money-bill-wave text-3xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-semibold text-gray-800">Withdraw Cash</h2>
+                </div>
+                
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                  <div class="mb-4">
+                    {% for message in messages %}
+                      <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded mb-2 shadow flex items-start">
+                        <i class="fas fa-exclamation-triangle mr-2 mt-0.5"></i>
+                        <span>{{ message }}</span>
+                      </div>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+                {% endwith %}
+                            
+                <form action="/withdraw/{{ session_id }}" method="post" class="space-y-6">
+                    <input type="hidden" name="session_id" value="{{ session_id }}">
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="space-y-2">
+                            <label for="amount" class="text-gray-700 font-medium flex items-center">
+                                <i class="fas fa-dollar-sign mr-2 text-green-600"></i>
+                                <span>Amount to Withdraw:</span>
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500">$</span>
+                                </div>
+                                <input type="number" min="0" step="0.01" name="amount" id="amount" required
+                                    class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="my-4">
+                        <div class="text-gray-600 mb-2 text-center text-sm">Quick Selection</div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button type="button" class="bg-blue-50 hover:bg-blue-100 border border-blue-200 py-3 rounded-lg font-medium transition flex items-center justify-center text-blue-700" onclick="setAmount(20)">
+                                <i class="fas fa-money-bill-alt mr-2"></i>$20
+                            </button>
+                            <button type="button" class="bg-blue-50 hover:bg-blue-100 border border-blue-200 py-3 rounded-lg font-medium transition flex items-center justify-center text-blue-700" onclick="setAmount(50)">
+                                <i class="fas fa-money-bill-alt mr-2"></i>$50
+                            </button>
+                            <button type="button" class="bg-blue-50 hover:bg-blue-100 border border-blue-200 py-3 rounded-lg font-medium transition flex items-center justify-center text-blue-700" onclick="setAmount(100)">
+                                <i class="fas fa-money-bill-alt mr-2"></i>$100
+                            </button>
+                            <button type="button" class="bg-blue-50 hover:bg-blue-100 border border-blue-200 py-3 rounded-lg font-medium transition flex items-center justify-center text-blue-700" onclick="setAmount(200)">
+                                <i class="fas fa-money-bill-alt mr-2"></i>$200
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t border-gray-200 pt-6">
+                        <div class="flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
+                            <button type="submit" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center">
+                                <i class="fas fa-check-circle mr-2"></i> Withdraw
+                            </button>
+                            <a href="{{ url_for('main_menu', session_id=session_id) }}" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition duration-300 text-center flex items-center justify-center">
+                                <i class="fas fa-th-large mr-2"></i> Back to Menu
+                            </a>
+                        </div>
+                    </div>
+                </form>
+                
+                <div class="mt-6 pt-4 border-t border-gray-200">
+                    <div class="text-sm text-gray-500 flex items-center justify-center">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        <span>Daily withdrawal limit: $1,000</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        function setAmount(value) {
+            document.getElementById('amount').value = value;
+        }
+    </script>
+</body>
+</html>

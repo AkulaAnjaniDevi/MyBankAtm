@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Menu - ATM System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .menu-card {
+            transition: all 0.3s ease;
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .icon-container {
+            transition: all 0.3s ease;
+        }
+        
+        .menu-card:hover .icon-container {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 h-screen flex items-center justify-center overflow-hidden">
+    <div class="container mx-auto px-4 max-w-lg">
+        <div class="glass-effect rounded-2xl shadow-xl p-6 w-full border border-gray-200 overflow-hidden">
+    
+            <div class="text-center mb-8">
+                <div class="inline-block bg-blue-100 p-3 rounded-full mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-semibold text-gray-800">Welcome, {{ user_name }}</h2>
+                <p class="text-gray-500 mt-1">Please select a service below</p>
+                <div class="h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-6 mb-8">
+                <a href="{{ url_for('check_balance', session_id=session_id) }}" class="menu-card bg-white hover:bg-blue-50 p-5 rounded-xl flex flex-col items-center text-center shadow-md border border-gray-100">
+                    <div class="icon-container bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-full mb-4 shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <span class="font-medium text-gray-800">Check Balance</span>
+                    <span class="text-xs text-blue-500 mt-2">View your funds</span>
+                </a>
+                
+                <a href="{{ url_for('withdraw', session_id=session_id) }}" class="menu-card bg-white hover:bg-green-50 p-5 rounded-xl flex flex-col items-center text-center shadow-md border border-gray-100">
+                    <div class="icon-container bg-gradient-to-r from-green-500 to-emerald-600 text-white p-4 rounded-full mb-4 shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <span class="font-medium text-gray-800">Withdraw Cash</span>
+                    <span class="text-xs text-green-500 mt-2">Get your money</span>
+                </a>
+                
+                <a href="{{ url_for('deposit', session_id=session_id) }}" class="menu-card bg-white hover:bg-purple-50 p-5 rounded-xl flex flex-col items-center text-center shadow-md border border-gray-100">
+                    <div class="icon-container bg-gradient-to-r from-purple-500 to-purple-600 text-white p-4 rounded-full mb-4 shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                    </div>
+                    <span class="font-medium text-gray-800">Deposit</span>
+                    <span class="text-xs text-purple-500 mt-2">Add funds</span>
+                </a>
+                
+                <a href="{{ url_for('transactions', session_id=session_id) }}" class="menu-card bg-white hover:bg-amber-50 p-5 rounded-xl flex flex-col items-center text-center shadow-md border border-gray-100">
+                    <div class="icon-container bg-gradient-to-r from-amber-500 to-amber-600 text-white p-4 rounded-full mb-4 shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                    </div>
+                    <span class="font-medium text-gray-800">Transaction History</span>
+                    <span class="text-xs text-amber-500 mt-2">View your activity</span>
+                </a>
+            </div>
+            
+            <div class="flex justify-center">
+                <a href="{{ url_for('logout', session_id=session_id) }}" class="group flex items-center justify-center bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-medium py-3 px-6 rounded-xl transition duration-300 shadow-md w-full max-w-xs">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    Exit Session
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
