@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for, flash
 import uuid
 
-app = Flask(__name__)
+app = Flask(__name__, render_template="templates")
 app.secret_key = 'my_key'  # Necessary for flash messages
 
 class Account:
@@ -271,5 +271,5 @@ def logout(session_id):
     flash("Thank you for using our ATM. Goodbye!", "success")
     return redirect(url_for('insert_card'))
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+# if __name__ == '__main__':
+#     app.run(debug=True, port=5000)
