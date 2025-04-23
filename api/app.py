@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for, flash
 import uuid
 
-app = Flask(__name__, render_template="templates")
+app = Flask(__name__, template_folder="templates")
 app.secret_key = 'my_key'  # Necessary for flash messages
 
 class Account:
