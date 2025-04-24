@@ -272,4 +272,4 @@ def logout(session_id):
     return redirect(url_for('insert_card'))
 
 # if __name__ == '__main__':
-#     app.run(debug=True, port=5000)
+#     app.run(debug=True)
